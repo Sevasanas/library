@@ -1,24 +1,14 @@
-import logo from './logo.svg';
+import { Fragment } from 'react';
 import './App.css';
+import Message from './Components/Message'
+import vinny from './Components/vinny.png'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+    <Message text="Давным-давно, кажется, в прошлую пятницу, жил в одной стране медвежонок под именем Винни-Пух. А почему под именем? Потому что над его дверью была надпись: «Винни-Пух», а он под ней жил." />
+    <img src={vinny} alt='vinny' />
+  </Fragment>
   );
 }
 
