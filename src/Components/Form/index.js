@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
+import './form.css'
 
-export const Form = ({onSendMessage}) => {
+export const Form = ({ onSendMessage }) => {
     const [value, setValue] = useState('');
+    
     const handleChange = (e) => {
         setValue(e.target.value);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         onSendMessage({
             author: 'Me',
             id: Date.now(),
@@ -17,8 +20,8 @@ export const Form = ({onSendMessage}) => {
 
     return(
         <form onSubmit={handleSubmit}>
-            <input type="text" value={value} onChange={handleChange} />
-            <input type="submit" />
+            <input className="field" type="text" value={value} onChange={handleChange} />
+            <input className="button" type="submit" />
         </form>
     )
 }
