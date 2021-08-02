@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import './App.css';
 import { Form } from './Components/Form';
 import { MessageField } from './Components/MessageField';
+import { ChatList } from './Components/ChatList';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
    <div>
      <MessageField messages={messages} />
      <Form onSendMessage={handleSendMessage} />
+     <ChatList />
    </div>
   );
 }
