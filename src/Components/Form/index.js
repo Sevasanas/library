@@ -8,7 +8,7 @@ export const Form = ({ onSendMessage }) => {
     const inputRef = useRef(null);
     useEffect(() => {
         if(inputRef.current) {
-            inputRef.current?.focus();
+            inputRef.current.focus();
         }
     }, []);
     
