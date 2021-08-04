@@ -15,10 +15,13 @@ export const Router = () => {
                 </li>
             </ul>
             <Switch>
+                <Route path="/" exact>
+                    <h2>WELCOME</h2>
+                </Route>
                 <Route path="/profile">
                     <Profile />
                 </Route>
-                <Route path="/home">
+                <Route path="/home:chatId" component={Home}>
                     <Home />
                 </Route>
             </Switch>

@@ -5,7 +5,7 @@ import { MessageField } from '../MessageField';
 import { ChatList } from '../ChatList';
 
 
-function Home() {
+function Home(props) {
   const [messages, setMessages] = useState([
     { text: "Hi", author: "Me", id: 1 },
   ]);
