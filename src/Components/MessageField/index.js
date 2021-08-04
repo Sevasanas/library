@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Message from '../Message'
+import {Message} from '../Message'
 
 export const MessageField = ({ messages }) => {
     const renderMessage = useCallback((mess) => (

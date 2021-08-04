@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './App.css';
 import { Form } from './Components/Form';
 import { MessageField } from './Components/MessageField';
+import { ChatList } from './Components/ChatList';
 
 
 function App() {
@@ -14,22 +15,28 @@ function App() {
   }, [messages]);
 
   useEffect(() => {
-    if(!messages.length || messages[messages.length - 1].author === "Bot") {
-      return;
-    }
-    const timeout = setTimeout(() => {
-      const newMessage = {text: "Hello, I am Bot!", author: "Bot", id: Date.now(),};
-      setMessages([...messages, newMessage]);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
+    if(messages.length && messages[messages.length - 1].author !== "Bot") {
+      const timeout = setTimeout(() => {
+            const newMessage = {text: "Hello, I am Bot!", author: "Bot", id: Date.now(),};
+            setMessages([...messages, newMessage]);
+          }, 1000);
+          return () => clearTimeout(timeout);
+      }
     
   }, [messages]);
   
   return (
    <div>
-     <MessageField messages={messages} />
-     <Form onSendMessage={handleSendMessage} />
+     <div className='ChatList'>
+       <div>
+        <ChatList />
+      </div>
+      <div>
+        <MessageField messages={messages} />
+        <Form onSendMessage={handleSendMessage} />
+      </div>
+    </div>
+     
    </div>
   );
 }

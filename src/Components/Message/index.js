@@ -1,10 +1,18 @@
-import React from 'react'
+import React from 'react';
 
 
-const Message = ({ text, author }) => (
-    <div>
-        {author} : {text}
-    </div>
-);
 
-export default Message;
+export const Message = (props) => {
+    const {
+        text,
+        author,
+      } = props;
+    
+      return (
+        <div>
+            {author} : {text}
+        </div>
+      );
+}
+   
+
