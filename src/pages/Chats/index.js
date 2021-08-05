@@ -17,7 +17,7 @@ const initialChats = {
 };
 
 
-function Home() {
+function Chats() {
   const { chatId } = useParams();
   /*const [messages, setMessages] = useState([
     { text: "Hi", author: "Me", id: 1 },
@@ -84,4 +84,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Chats;

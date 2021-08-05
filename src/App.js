@@ -1,12 +1,15 @@
 import React from 'react';
-import { Router } from './Components/Router';
+import { routes } from './routes';
+import { Switch, Route } from 'react-router-dom';
 
-
-function App() {
-  
-  return (
-   <Router />
-  );
-}
-
-export default App;
+export const App = function() {
+    return(
+        <div className="container">
+            <main className="main">
+                <Switch>
+                    {routes.map((route, idx) => <Route key={idx} {...route}/>)}
+                </Switch>
+            </main>
+        </div>
+    );
+};
