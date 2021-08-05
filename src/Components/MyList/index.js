@@ -17,9 +17,8 @@ export const MyList = (props) => {
           {chats.map((item, index) => (
               <ListItem key={`${item.id}${index}`}>
                 <Link to={`/home/${item.id}`}>
-                <ListItemText primary={`${item.name}`} />
+                  <ListItemText primary={`${item.name}`} />
                 </Link>
-                
               </ListItem>
           ))}
       </List>
