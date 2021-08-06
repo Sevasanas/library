@@ -1,29 +1,32 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './home.css';
 import { Form } from '../../Components/Form';
 import { MessageField } from '../../Components/MessageField';
-import { ChatList } from '../../Components/ChatList';
 import { useParams } from 'react-router-dom';
+import { MyList } from '../../Components/MyList';
 
 const initialChats = {
     chat1: {
         messages: [{ text: "Hi", author: "Me", id:"chat1-1"}],
-        name: "Chat1",
+        name: "Chat 1",
         id: "chat1",
     },
-    chat2: {messages: [], name: "Chat2", id: "chat2"},
+    chat2: {messages: [], name: "Chat 2", id: "chat2"},
     
-    chat3: {messages: [], name: "Chat3", id: "chat3"},
+    chat3: {messages: [], name: "Chat 3", id: "chat3"},
 };
 
 
-function Chats() {
+export function Chats() {
+  
   const { chatId } = useParams();
+
   /*const [messages, setMessages] = useState([
     { text: "Hi", author: "Me", id: 1 },
   ]);*/
 
   const [chats, setChats] = useState(initialChats);
+  
 
   const handleSendMessage = useCallback((newMessage) => {
 
@@ -34,42 +37,39 @@ function Chats() {
           messages: [...chats[chatId].messages, newMessage],
         },
       });
-    },
+  },
     [chats, chatId]
   );
-    /*setMessages([...messages, newMessage]);
-  }, [messages]);*/
+  
+  useEffect(() => {
+    const activeChat = chats[chatId];
+    const activeMessageLength = activeChat?.messages?.length;
+    let timeoutChat;
 
-
-
- /* useEffect(() => {
     if (
-      !chatId ||
-      !chats[chatId]?.messages.length ||
-      chats[chatId].messages[chats[chatId].messages.length - 1].author ===
-        "Bot"
+      activeMessageLength &&
+      activeChat.messages[activeMessageLength - 1].author !== "Bot"
     ) {
-      return;
+      timeoutChat = setTimeout(() => {
+        const newMessage = {
+          text: "I am a robot",
+          author: "Bot",
+          id: Date.now(),
+        };
+
+        handleSendMessage(newMessage);
+      }, 1000);
     }
 
-    const timeout = setTimeout(() => {
-      const newMessage = {
-        text: "I am a robot",
-        author: "Bot",
-        id: Date.now(),
-      };
-
-      handleSendMessage(newMessage);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
-  }, [chats]);*/
+    return () => {clearTimeout(timeoutChat)};
+  }, [chats]);
+  
 
   return (
    <div>
      <div className='ChatList'>
        <div>
-        <ChatList chats={chats}/>
+        <MyList chats={chats}/>
       </div>
       {!!chatId && (
         <div>
@@ -84,4 +84,4 @@ function Chats() {
   );
 }
 
-export default Chats;
+
