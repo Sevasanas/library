@@ -1,3 +1,5 @@
+import { PROFILE_CHANGE_SHOW } from "./actionTypes";
+
 const initialState = {
     show: false,
 }
