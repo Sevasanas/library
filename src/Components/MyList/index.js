@@ -1,24 +1,18 @@
 import React from 'react';
 import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
-import { ListItemText } from '@material-ui/core';
+
 import { Link } from 'react-router-dom';
 
 
-export const MyList = (props) => {
-  const {
-    chats,
-  } = props;
-
-    return (
-      <List>
-          {chats.map((item, index) => (
-              <ListItem key={`${item.id}${index}`}>
-                <Link to={`/chats/${item.id}`}>
-                  <ListItemText primary={`${item.name}`} />
-                </Link>
-              </ListItem>
-          ))}
-      </List>
-    );
-  };
+export const MyList = ({ chats }) => {
+  return (
+    <List>
+      {Object.values(chats).map((c) => (
+        <ListItem key={c.id}>
+          <Link to={`/chats/${c.id}`}>{c.name}</Link>
+        </ListItem>
+      ))}
+    </List>
+  );
+};

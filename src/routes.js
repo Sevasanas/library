@@ -15,7 +15,7 @@ export  const routes = [
         exact: true
     },
     {
-        path: '/сhats/:chatId?',
+        path: '/chats/:chatId?',
         component: Chats,
         exact: true
     },
