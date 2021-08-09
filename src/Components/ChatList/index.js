@@ -1,9 +1,9 @@
 import React from 'react';
-import {MyList} from '../MyList';
+import { MyList } from '../MyList'
 
 
 
-export function ChatList(props) {
+export function ChatList() {
     const chats = [
       {
           name: "Chat1",
@@ -24,7 +24,6 @@ export function ChatList(props) {
       return (
           <div className="root">
         <MyList chats={chats}  />
-  
       </div>
-      )
+      );
   }
