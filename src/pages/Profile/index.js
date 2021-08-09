@@ -3,6 +3,7 @@ import { PROFILE_CHANGE_SHOW } from '../../store/actionTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import  books  from './books.png';
 import './profile.css';
+import { Checkbox } from '@material-ui/core';
 
 
 export const Profile = () => {
@@ -20,7 +21,7 @@ export const Profile = () => {
     return (
         <div>
             <h2>This is profile</h2>
-            <button onClick={changeShow}>Show</button>
+            <button onClick={changeShow}>Click</button>
             {profileState.show && <img className="profile" src={books} alt="{books}" />}
         </div>
     );
