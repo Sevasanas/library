@@ -63,7 +63,6 @@ export function Chats() {
     return () => {clearTimeout(timeoutChat)};
   }, [chats]);
   
-
   return (
     <div>
       <div className='ChatList'>
@@ -72,7 +71,7 @@ export function Chats() {
        </div>
        {!!chatId && (
          <div>
-         <MessageField messages={chats[chatId].messages} />
+         <MessageField messages={chats[chatId]?.messages} />
          <Form onSendMessage={handleSendMessage} />
        </div>
        )}
