@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import './home.css';
 import { Form } from '../../Components/Form';
 import { MessageField } from '../../Components/MessageField';
 import { useParams } from 'react-router-dom';
 import { MyList } from '../../Components/MyList';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteChat, sendMessage } from '../../store/chats/actions';
 
 const initialChats = {
     chat1: {
@@ -25,21 +27,18 @@ export function Chats() {
     { text: "Hi", author: "Me", id: 1 },
   ]);*/
 
-  const [chats, setChats] = useState(initialChats);
-  
+  const chats = useSelector(state => state.chats);
+  const dispatch = useDispatch();
 
   const handleSendMessage = useCallback((newMessage) => {
-
-    setChats({
-        ...chats,
-        [chatId]: {
-          ...chats[chatId],
-          messages: [...chats[chatId].messages, newMessage],
-        },
-      });
+      dispatch(sendMessage(chatId, newMessage));
   },
-    [chats, chatId]
+    [chatId]
   );
+
+  const handleDeleteChat = useCallback((id) => {
+    dispatch(deleteChat(id));
+  }, []);
   
   useEffect(() => {
     const activeChat = chats[chatId];
@@ -66,22 +65,22 @@ export function Chats() {
   
 
   return (
-   <div>
-     <div className='ChatList'>
-       <div>
-        <MyList chats={chats}/>
-      </div>
-      {!!chatId && (
+    <div>
+      <div className='ChatList'>
         <div>
-        <MessageField messages={chats[chatId].messages} />
-        <Form onSendMessage={handleSendMessage} />
-      </div>
-      )}
+         <MyList chats={chats} onDeleteChat={handleDeleteChat}/>
+       </div>
+       {!!chatId && (
+         <div>
+         <MessageField messages={chats[chatId].messages} />
+         <Form onSendMessage={handleSendMessage} />
+       </div>
+       )}
+       
+     </div>
       
     </div>
-     
-   </div>
-  );
+   );
 }
 
 
