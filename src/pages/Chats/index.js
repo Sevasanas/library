@@ -67,7 +67,10 @@ export function Chats() {
     <div>
       <div className='ChatList'>
         <div>
-         <MyList chats={chats} onDeleteChat={handleDeleteChat}/>
+         <MyList 
+         chats={chats} 
+         onDeleteChat={handleDeleteChat}
+         />
        </div>
        {!!chatId && (
          <div>
