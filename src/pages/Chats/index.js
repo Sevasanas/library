@@ -40,28 +40,6 @@ export function Chats() {
     dispatch(deleteChat(id));
   }, []);
   
-  useEffect(() => {
-    const activeChat = chats[chatId];
-    const activeMessageLength = activeChat?.messages?.length;
-    let timeoutChat;
-
-    if (
-      activeMessageLength &&
-      activeChat.messages[activeMessageLength - 1].author !== "Bot"
-    ) {
-      timeoutChat = setTimeout(() => {
-        const newMessage = {
-          text: "I am a robot",
-          author: "Bot",
-          id: Date.now(),
-        };
-
-        handleSendMessage(newMessage);
-      }, 1000);
-    }
-
-    return () => {clearTimeout(timeoutChat)};
-  }, [chats]);
   
   return (
     <div>
