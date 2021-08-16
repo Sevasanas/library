@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import {Message} from '../Message'
 
-export const MessageField = ({ messages }) => {
+export const MessageField = ({ messages = [] }) => {
     const renderMessage = useCallback((mess) => (
         <Message text={mess.text} author={mess.author} key={mess.id} /> 
         ), []);

@@ -1,28 +1,30 @@
-import React from 'react';
-import { PROFILE_CHANGE_SHOW } from '../../store/actionTypes';
-import { useDispatch, useSelector } from 'react-redux';
-import  books  from './books.png';
-import './profile.css';
-import { Checkbox } from '@material-ui/core';
-
+import React, { useState } from "react";
+import { changeName } from "../../store/profile/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { selectName } from "../../store/profile/selectors";
 
 export const Profile = () => {
-    const profileState = useSelector(state => state);
-    const dispatch = useDispatch();
+  const [value, setValue] = useState("");
+  const name = useSelector(selectName);
+  const dispatch = useDispatch();
 
-    const changeShow = () => {
-        dispatch({
-            type: PROFILE_CHANGE_SHOW
-        });
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(changeName(value));
+    setValue("");
+  };
 
-    console.log(profileState);
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
 
-    return (
-        <div>
-            <h2>This is profile</h2>
-            <button onClick={changeShow}>Click</button>
-            {profileState.show && <img className="profile" src={books} alt="{books}" />}
-        </div>
-    );
+  return (
+    <>
+      <h2>THIS IS PROFILE OF {name}</h2>
+      <form action="" onSubmit={handleSubmit}>
+        <input value={value} onChange={handleChange} />
+        <button onClick={handleSubmit}>Save name</button>
+      </form>
+    </>
+  );
 };
