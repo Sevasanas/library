@@ -16,6 +16,20 @@ export const sendMessage = (chatId, message) => ({
     },
 });
 
+let timeout;
+
+export const sendMessageWithReply = (chatId, message) => (dispatch) => {
+    dispatch(sendMessage(chatId, message));
+
+    if (timeout) {
+        clearTimeout(timeout);
+    }
+
+   timeout = setTimeout(() => {
+        dispatch(sendMessage(chatId, { author: "Bot", text: "Hi, I am robot" }))
+    }, 1000);
+};
+
 export const deleteChat = (chatId) => ({
     type: DELETE_CHAT,
     payload: chatId,
