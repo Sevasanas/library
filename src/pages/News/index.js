@@ -4,9 +4,10 @@ import { API_URL } from '../../constants';
 export const News = () => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(false);
-  
+  const [loading, setLoading] = useState(false);
 
   const requestArticles = useCallback(() => {
+    setLoading(true);
     fetch(API_URL)
     .then((response) => {
 
@@ -18,6 +19,8 @@ export const News = () => {
   .then((result) => setArticles(result))
   .catch(() => {
     setError(true);
+  }).finally(() => {
+    setLoading(false);
   });
 }, []);
 
@@ -25,6 +28,10 @@ export const News = () => {
   useEffect(() => {
    requestArticles();
   }, []);
+
+  if (loading) {
+    return <h3>LOADING</h3>
+  }
 
   if (error) {
     return (
