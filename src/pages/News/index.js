@@ -1,28 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { API_URL } from '../../constants';
+import { getArticles } from '../../store/articles/actions';
+import { selectArticles, selectArticlesError, selectArticlesLoading } from '../../store/articles/selectors';
 
 export const News = () => {
-  const [articles, setArticles] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const requestArticles = useCallback(async () => {
-    setLoading(true);
+  const dispatch = useDispatch();
+  const loading = useSelector(selectArticlesLoading);
+  const error = useSelector(selectArticlesError);
+  const articles = useSelector(selectArticles);
 
-    try {
-      const response = await fetch(API_URL);
-      
-      if (!response.ok) {
-        throw new Error("Request failed: ", response.status);
-      }
-      const result = await response.json();
+  const requestArticles = useCallback(() => {
+   dispatch(getArticles());
 
-      setArticles(result);
-    } catch (err) {
-      setError(true);
-    }finally {
-      setLoading(false);
-    }
     
 }, []);
 
