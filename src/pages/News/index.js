@@ -6,22 +6,24 @@ export const News = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const requestArticles = useCallback(() => {
+  const requestArticles = useCallback(async () => {
     setLoading(true);
-    fetch(API_URL)
-    .then((response) => {
 
+    try {
+      const response = await fetch(API_URL);
+      
       if (!response.ok) {
         throw new Error("Request failed: ", response.status);
       }
-      return response.json();
-  })
-  .then((result) => setArticles(result))
-  .catch(() => {
-    setError(true);
-  }).finally(() => {
-    setLoading(false);
-  });
+      const result = await response.json();
+
+      setArticles(result);
+    } catch (err) {
+      setError(true);
+    }finally {
+      setLoading(false);
+    }
+    
 }, []);
 
 
