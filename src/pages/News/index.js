@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { API_URL } from '../../constants';
 import { getArticles } from '../../store/articles/actions';
 import { selectArticles, selectArticlesError, selectArticlesLoading } from '../../store/articles/selectors';
 
@@ -23,7 +22,7 @@ export const News = () => {
   }, []);
 
   if (loading) {
-    return <h3>LOADING</h3>
+    return <h3>LOADING...</h3>
   }
 
   if (error) {

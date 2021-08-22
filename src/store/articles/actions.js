@@ -26,8 +26,8 @@ export const getArticles = () => async (dispatch) => {
         }
         const result = await response.json();
   
-        getArticlesSuccess(result);
+        dispatch(getArticlesSuccess(result));
       } catch (err) {
-        getArticlesError(true);
+        dispatch(getArticlesError(true));
       }
 };
