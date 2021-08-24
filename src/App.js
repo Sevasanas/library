@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import firebase from 'firebase';
 import { routes } from './routes';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { AccessRoute } from './hocs/AccessRoute';
 
 export const App = function() {
+  const [isAuthed, setIsAuthed] = useState(false);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setIsAuthed(true);
+      } else {
+        setIsAuthed(false);
+      }
+    });
+  }, []);
+
     return(
       <Provider store ={store}>
         <PersistGate persistor={persistor}>
@@ -22,7 +36,7 @@ export const App = function() {
               </li>
             </ul>
             <Switch>
-              {routes.map((route, idx) => <Route key={idx} {...route}/>)}
+            {routes.map((route, idx) => <AccessRoute key={idx} authed={isAuthed} {...route}/>)}
             </Switch>
           </BrowserRouter>
         </PersistGate>
