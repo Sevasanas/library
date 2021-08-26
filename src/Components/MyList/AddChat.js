@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addChat } from '../../store/chats/actions';
+import { addChatWithFB } from '../../store/chats/actions';
+import { useInput } from "../../utils/useInput";
 
-export const AddChat = () => {
+export const AddChat = ({ onAddChat }) => {
     const dispatch = useDispatch();
-    const [value, setValue] = useState('');
+    const [
+        value, 
+        handleChange, 
+        reset
+    ] = useInput("");
 
-    const handleChange = (e) => {
-        setValue(e.target.value);
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if(!value) {
             return
         }
-        const newId = `chat-${Date.now()}`;
-        dispatch(addChat(newId, value));
+        
+        dispatch(addChatWithFB(value));
+        reset();
     }
     return (
         <form onSubmit={handleSubmit}>
             <input onChange={handleChange} value={value} />
-            <button onClick={handleChange} value={value}>ADD</button>
+            <button onClick={handleSubmit}>ADD</button>
         </form>
-    )
-}
+    );
+};
