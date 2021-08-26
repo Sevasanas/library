@@ -40,12 +40,12 @@ export function Chats() {
       <div className='ChatList'>
         <div>
          <MyList 
-         chats={chats} 
+          chats={chats}
          />
        </div>
        {!!chatId && (
          <div>
-         <MessageField messages={[chatId] || []} />
+         <MessageField messages={messages[chatId] || []} />
          <Form onSendMessage={handleSendMessage} />
        </div>
        )}
